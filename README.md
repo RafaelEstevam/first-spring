@@ -1,25 +1,7 @@
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+# Spring boot application
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+Start application
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+```
+mvn spring-boot:run
+```
