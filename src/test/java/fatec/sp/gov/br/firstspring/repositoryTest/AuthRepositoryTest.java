@@ -20,7 +20,7 @@ import fatec.sp.gov.br.firstspring.repository.LoginRepository;
 @SpringBootTest
 @Transactional
 @Rollback //rollback on test data
-public class AuthRepositoryTests {
+public class AuthRepositoryTest {
 
     @Autowired //repository created by spring when to start the tests
 	private AuthRepository authRepository;
@@ -47,11 +47,11 @@ public class AuthRepositoryTests {
 	@Test
 	void loginRepositorySaveLoginOk(){
 		Auth auth = new Auth();
-		auth.setToken("jkadsjhkj");
+		auth.setToken("jkadsjhkjj");
 		authRepository.save(auth);
 
 		Login login = new Login();
-		login.setEmail("teste@teste.com");
+		login.setEmail("teste@testee.com");
 		login.setPassword("teste123");
 		login.setAuthorizations(new HashSet<Auth>()); //create a list of authorizations
 		login.getAuthorizations().add(auth); //add at list the authorization created
