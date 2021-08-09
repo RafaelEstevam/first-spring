@@ -34,14 +34,14 @@ public class ProfileRepositoryTest {
     private AuthRepository authRepository;
 
     @Test
-    void profileRepositorySaveOk(){
+    void profileRepositorySaveProfileWithLoginOk(){
 
         Auth auth = new Auth();
         auth.setToken("teste12346");
         authRepository.save(auth);
 
         Login login = new Login();
-        login.setEmail("teste@teste.comm");
+        login.setEmail("login@login.comm");
         login.setPassword("teste123");
         login.setAuthorizations(new HashSet<Auth>());
 		login.getAuthorizations().add(auth);
@@ -50,7 +50,7 @@ public class ProfileRepositoryTest {
         Profile profile = new Profile();
         profile.setLogin(login);
         profile.setName("Teste");
-        profile.setDoc("123.123.123-12");
+        profile.setDoc("111.111.111-11");
         profile.setGender("Masculino");
         profile.setBirthday(new Date(1220227200L * 1000));
         profile.setPhone("(12) 2121-2121");

@@ -24,7 +24,7 @@ public class CategoryRepositoryTest {
     @Test
     void categoryRepositorySaveCategoryOk(){
         Category category = new Category();
-        category.setName("Front-end");
+        category.setName("Backend");
         categoryRepository.save(category);
         assertNotNull(category.getId());
     }
@@ -37,17 +37,15 @@ public class CategoryRepositoryTest {
 
     @Test
     void categoryRepositoryGetByIdOk(){
-        Category category = new Category();
-        category.setName("Front-end");
-        categoryRepository.save(category);
-        assertNotNull(categoryRepository.getById(category.getId()));
+        // Category category = categoryRepository.findCategoryByName("Front-end");
+        assertNotNull(categoryRepository.getById(categoryRepository.findCategoryByName("Front-end").getId()));
     }
 
     @Test
     void categoryRepositoryGetAllOk(){
-        Category category = new Category();
-        category.setName("Front-end");
-        categoryRepository.save(category);
+        // Category category = new Category();
+        // category.setName("Front-end");
+        // categoryRepository.save(category);
         assertFalse(categoryRepository.findAll().isEmpty());
     }
 }

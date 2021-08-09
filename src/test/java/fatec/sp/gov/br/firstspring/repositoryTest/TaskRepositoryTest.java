@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import fatec.sp.gov.br.firstspring.entity.Category;
 import fatec.sp.gov.br.firstspring.entity.Login;
@@ -18,6 +21,8 @@ import fatec.sp.gov.br.firstspring.repository.ProfileRepository;
 import fatec.sp.gov.br.firstspring.repository.TaskRepository;
 
 @SpringBootTest
+@Transactional
+@Rollback
 public class TaskRepositoryTest {
 
     @Autowired
@@ -46,8 +51,8 @@ public class TaskRepositoryTest {
 
         Login login = loginRepository.findByEmail("teste@teste.com");
         Profile profile = profileRepository.findProfileByLoginEmail(login.getEmail());
-        Category category = categoryRepository.findCategoryByName("front");
-        
+        Category category = categoryRepository.findCategoryByName("Front-end");
+
         Task task = new Task();
         task.setTitle("Task test");
         task.setCategory(category);

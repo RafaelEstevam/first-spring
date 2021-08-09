@@ -39,6 +39,7 @@ CREATE TABLE `spring`.`profile` (
     `mobile` VARCHAR(25) NULL ,
     `created_at` DATE NULL DEFAULT CURRENT_TIMESTAMP ,
     PRIMARY KEY (`id`),
+    UNIQUE `profile_doc` (`doc`),
     UNIQUE `profile_login_id` (`login_id`),
     FOREIGN KEY profile_login_fk (`login_id`) REFERENCES login(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB;
@@ -65,3 +66,13 @@ CREATE TABLE `spring`.`task` (
     FOREIGN KEY task_category_fk (`category_id`) REFERENCES category(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY task_profile_fk (`profile_id`) REFERENCES profile(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB;
+
+INSERT INTO auth values(1, "kljsdflçkasçfdjl");
+INSERT INTO login values(1, "teste@teste.com", "teste123");
+INSERT INTO auth_login values(1, 1);
+
+INSERT INTO profile values(1, 1, "Teste", "123.123.123-12", "masculino", "12/12/12", "(12)1212-1212", "(12) 1 2121-2121", CURRENT_DATE);
+
+INSERT INTO category values(1, "Front-end");
+
+INSERT INTO task values(1,1,1,"Task Test", "Description", "In progress", 20, "12/12/12", CURRENT_DATE, CURRENT_DATE);
