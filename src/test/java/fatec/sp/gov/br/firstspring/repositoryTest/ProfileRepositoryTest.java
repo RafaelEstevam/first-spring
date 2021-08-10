@@ -37,7 +37,7 @@ public class ProfileRepositoryTest {
     void profileRepositorySaveProfileWithLoginOk(){
 
         Auth auth = new Auth();
-        auth.setToken("teste12346");
+        auth.setPermission("teste12346");
         authRepository.save(auth);
 
         Login login = new Login();

@@ -8,7 +8,7 @@ import fatec.sp.gov.br.firstspring.entity.Auth;
 
 public interface AuthRepository extends JpaRepository<Auth, Long> {
     
-    public Auth findByToken(String token);
+    public Auth findByPermission(String permission);
 
     public List<Auth> findByLoginsEmail(String email); //return a list of authorizations
 

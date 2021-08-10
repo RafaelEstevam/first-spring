@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -31,34 +32,30 @@ public class AuthRepositoryTest {
     @Test
 	void authRepositorySaveOk(){
 		Auth auth = new Auth();
-		auth.setToken("kaksdkllsdjkk");
+		auth.setPermission("EDITOR");
 		authRepository.save(auth);
 		assertNotNull(auth.getId()); //Can't be null to pass at test
 	}
 
 	@Test
-	void authRepositoryFindByTokenOk(){
-		Auth auth = new Auth();
-		auth.setToken("teste");
-		authRepository.save(auth);
-		assertNotNull(authRepository.findByToken(auth.getToken()));
+	void authRepositoryFindByPermissionOk(){
+		Auth auth = authRepository.findByPermission("USER");
+		assertNotNull(authRepository.findByPermission(auth.getPermission()));
 	}
 
 	@Test
 	void loginRepositorySaveLoginOk(){
-		Auth auth = new Auth();
-		auth.setToken("jkadsjhkjj");
-		authRepository.save(auth);
+		Auth auth = authRepository.findByPermission("ADMINISTRATOR");
+		assertNotNull(authRepository.findByPermission(auth.getPermission()));
 
 		Login login = new Login();
-		login.setEmail("teste@testee.com");
-		login.setPassword("teste123");
+		login.setEmail("junit@junit.com");
+		login.setPassword("junit");
 		login.setAuthorizations(new HashSet<Auth>()); //create a list of authorizations
 		login.getAuthorizations().add(auth); //add at list the authorization created
 		loginRepository.save(login);
 
 		assertFalse(authRepository.findByLoginsEmail(login.getEmail()).isEmpty());
-
 	}
-    
+
 }

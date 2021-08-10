@@ -11,18 +11,25 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fatec.sp.gov.br.firstspring.view.View;
+
 @Entity
 @Table(name = "auth") //table
 public class Auth {
     
     @Id
+    @JsonView({View.Login.class, View.Auth.class})
     @Column(name = "id") //column
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto generate of ID
     private long id;
 
-    @Column(name = "token")
-    private String token;
+    @JsonView({View.Login.class, View.Auth.class})
+    @Column(name = "permission")
+    private String permission;
 
+    @JsonView(View.Auth.class)
     @ManyToMany(mappedBy = "authorizations", fetch = FetchType.LAZY) //mapping of relation
     private Set<Login> logins;
 
@@ -34,12 +41,12 @@ public class Auth {
         this.id = id;
     }
 
-    public String getToken() {
-        return token;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public Set<Login> getLogins() {

@@ -13,21 +13,28 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fatec.sp.gov.br.firstspring.view.View;
+
 @Entity
 @Table(name = "login")
 public class Login {
     
     @Id
     @Column(name = "id")
+    @JsonView({View.Login.class, View.Auth.class})
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonView({View.Login.class, View.Auth.class})
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
 
+    @JsonView(View.Login.class)
     @ManyToMany(fetch = FetchType.LAZY) //how you get data
     @JoinTable(name = "auth_login",
         joinColumns = {

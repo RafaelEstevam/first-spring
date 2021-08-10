@@ -16,8 +16,8 @@ CREATE TABLE `spring`.`login` (
 
 CREATE TABLE `spring`.`auth` (
     `id` BIGINT NOT NULL AUTO_INCREMENT ,
-    `token` VARCHAR(1000) NOT NULL ,
-    PRIMARY KEY (`id`), UNIQUE `uq_auth_token` (`token`)
+    `permission` VARCHAR(1000) NOT NULL ,
+    PRIMARY KEY (`id`), UNIQUE `uq_auth_permission` (`permission`)
 ) ENGINE = InnoDB;
 
 CREATE TABLE `spring`.`auth_login` (
@@ -67,9 +67,10 @@ CREATE TABLE `spring`.`task` (
     FOREIGN KEY task_profile_fk (`profile_id`) REFERENCES profile(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
-INSERT INTO auth values(1, "kljsdflçkasçfdjl");
+INSERT INTO auth values(1, "USER");
+INSERT INTO auth values(2, "ADMINISTRATOR");
 INSERT INTO login values(1, "teste@teste.com", "teste123");
-INSERT INTO auth_login values(1, 1);
+INSERT INTO auth_login values(2, 1);
 
 INSERT INTO profile values(1, 1, "Teste", "123.123.123-12", "masculino", "12/12/12", "(12)1212-1212", "(12) 1 2121-2121", CURRENT_DATE);
 
