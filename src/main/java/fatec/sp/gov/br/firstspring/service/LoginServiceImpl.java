@@ -80,6 +80,9 @@ public class LoginServiceImpl implements LoginService {
 
     }
 
-
+    @Override
+    public void deleteLoginById(Long id) {
+        loginRepository.deleteById(id);
+    }
     
 }
