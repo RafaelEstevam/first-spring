@@ -1,6 +1,5 @@
 package fatec.sp.gov.br.firstspring.controller;
 
-import java.util.HashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -15,13 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fatec.sp.gov.br.firstspring.entity.Auth;
 import fatec.sp.gov.br.firstspring.entity.Login;
-import fatec.sp.gov.br.firstspring.repository.AuthRepository;
-import fatec.sp.gov.br.firstspring.repository.LoginRepository;
 import fatec.sp.gov.br.firstspring.service.LoginService;
 import fatec.sp.gov.br.firstspring.view.View;
-
 
 @RestController
 @CrossOrigin
