@@ -81,6 +81,28 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public Login putLogin(Login newLogin) {
+
+        Login login = loginRepository.getById(newLogin.getId());
+
+        login.setId(newLogin.getId());
+        login.setEmail(newLogin.getEmail());
+        login.setPassword(newLogin.getPassword());
+
+        //TODO Update authorization List;
+        // login.setAuthorizations(new HashSet<Auth>(newLogin.getAuthorizations()));
+
+        try{
+            loginRepository.save(login);
+            Login updatedLogin = loginRepository.getById(login.getId());
+            return updatedLogin;
+        }catch(Exception e){
+            throw new RuntimeException("User can't be save");
+        }
+        
+    }
+
+    @Override
     public void deleteLoginById(Long id) {
         loginRepository.deleteById(id);
     }

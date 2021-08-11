@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,6 +52,12 @@ public class LoginController {
     @PostMapping(value="/new")
     public Login postLogin(@RequestBody Login login) {
         return loginService.postLogin(login);
+    }
+
+    @JsonView(View.Login.class)
+    @PutMapping(value="/edit/{id}")
+    public Login putLogin(@RequestBody Login login){
+        return loginService.putLogin(login);
     }
     
     @DeleteMapping("/delete/{id}")

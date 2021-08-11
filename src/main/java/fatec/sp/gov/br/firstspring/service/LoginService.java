@@ -15,6 +15,8 @@ public interface LoginService {
 
     public Login postLogin(Login login);
 
+    public Login putLogin(Login login);
+
     public void deleteLoginById(Long id);
 
     public Auth getAuthorizationsById(Long id);
