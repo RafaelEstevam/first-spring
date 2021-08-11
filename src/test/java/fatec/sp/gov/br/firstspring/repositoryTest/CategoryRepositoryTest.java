@@ -38,7 +38,8 @@ public class CategoryRepositoryTest {
     @Test
     void categoryRepositoryGetByIdOk(){
         // Category category = categoryRepository.findCategoryByName("Front-end");
-        assertNotNull(categoryRepository.getById(categoryRepository.findCategoryByName("Front-end").getId()));
+        long id = 1;
+        assertNotNull(categoryRepository.getById(id));
     }
 
     @Test

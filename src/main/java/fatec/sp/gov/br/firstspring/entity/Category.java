@@ -7,15 +7,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fatec.sp.gov.br.firstspring.view.View;
+
 @Entity
 @Table(name = "category")
 public class Category {
     
     @Id
+    @JsonView(View.Category.class)
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonView(View.Category.class)
     @Column(name = "name")
     private String name;
 

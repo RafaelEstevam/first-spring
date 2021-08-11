@@ -58,28 +58,18 @@ public class CategoryServiceImpl implements CategoryService {
     public Category putCategory(Category newCategory) {
 
         //TODO Why return exception when return the updated category?
-
-        // Category category = categoryRepository.getById(newCategory.getId());
+        Category category = categoryRepository.getById(newCategory.getId());
         
-        // category.setId(newCategory.getId());
-        // category.setName(newCategory.getName());
+        category.setId(newCategory.getId());
+        category.setName(newCategory.getName());
 
-        // try{
-        //     categoryRepository.save(category);
-        //     Category updatedCategory = categoryRepository.getById(category.getId());
-            
-        //     Category test = new Category();
-
-        //     test.setId(700);
-        //     test.setName("Teste Categoria");
-            
-        //     return updatedCategory;
-        //     // return test;
-        // }catch(Exception e){
-        //     throw new RuntimeException("Category can't be save");
-        // }
-
-        return null;
+        try{
+            categoryRepository.save(category);
+            return newCategory;
+        }catch(Exception e){
+            throw new RuntimeException("User can't be save");
+        }
+        
     }
 
 }

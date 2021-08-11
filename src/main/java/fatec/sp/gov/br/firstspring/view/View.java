@@ -6,6 +6,8 @@ public class View {
 
     public static class LoginAll extends Login{};
 
+    public static class Category{};
+
     public static class Auth{};
 
 }
