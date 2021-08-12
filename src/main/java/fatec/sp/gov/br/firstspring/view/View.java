@@ -10,4 +10,6 @@ public class View {
 
     public static class Auth{};
 
+    public static class Profile extends Login{};
+
 }

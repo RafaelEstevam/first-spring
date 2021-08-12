@@ -11,37 +11,51 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fatec.sp.gov.br.firstspring.view.View;
+
 @Entity
 @Table(name = "profile")
 public class Profile {
     
+    @JsonView(View.Profile.class)
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonView(View.Profile.class)
     @OneToOne
     @JoinColumn(name = "login_id", referencedColumnName = "id")
     private Login login;
 
+    @JsonView(View.Profile.class)
     @Column(name = "name")
     private String name;
 
+    @JsonView(View.Profile.class)
     @Column(name = "doc")
     private String doc;
 
+    @JsonView(View.Profile.class)
     @Column(name = "gender")
     private String gender;
 
+    @JsonView(View.Profile.class)
     @Column(name = "birthday")
     private Date birthday;
 
+    @JsonView(View.Profile.class)
     @Column(name = "phone")
     private String phone;
 
+    @JsonView(View.Profile.class)
     @Column(name = "mobile")
     private String mobile;
 
+    @JsonView(View.Profile.class)
     @Column(name = "created_at")
     private Date created_at;
 

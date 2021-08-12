@@ -1,9 +1,11 @@
 package fatec.sp.gov.br.firstspring.repositoryTest;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -69,5 +71,22 @@ public class ProfileRepositoryTest {
         assertNotNull(profile.getId());
 
     }
+
+    // @Test
+    // void profileRepositoryDeleteProfileByIdOk(){
+
+    //     long id = 1;
+    //     profileRepository.deleteById(id);
+    //     Optional<Profile> profile = profileRepository.findById(id);
+        
+    //     Profile newProfile = new Profile();
+
+    //     if(profile.isPresent()){
+    //         newProfile = profile.get();
+    //     }
+
+    //     assertNull(newProfile.getId());
+
+    // }
 
 }
