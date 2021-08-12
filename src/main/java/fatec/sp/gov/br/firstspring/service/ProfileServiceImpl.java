@@ -72,9 +72,26 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile putProfile(Profile profile) {
-        // TODO Auto-generated method stub
-        return null;
+    public Profile putProfile(Profile newProfile) {
+
+        Profile profile = profileRepository.getById(newProfile.getId());
+
+        if(profile == null){
+            throw new RuntimeException("Perfil não encontrado");
+        }else{
+
+            profile.setName(newProfile.getName());
+            profile.setDoc(newProfile.getDoc());
+            profile.setGender(newProfile.getGender());
+            profile.setBirthday(newProfile.getBirthday());
+            profile.setPhone(newProfile.getPhone());
+            profile.setMobile(newProfile.getMobile());
+
+            profileRepository.save(profile);
+
+            Profile updatedProfile = profileRepository.getById(profile.getId());
+            return updatedProfile;
+        }
     }
     
 }
