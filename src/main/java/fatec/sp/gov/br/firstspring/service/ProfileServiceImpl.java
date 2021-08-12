@@ -55,7 +55,6 @@ public class ProfileServiceImpl implements ProfileService {
             profile.setBirthday(profile.getBirthday());
             profile.setPhone(profile.getPhone());
             profile.setMobile(profile.getMobile());
-            profile.setCreated_at(profile.getCreated_at());
 
             profileRepository.save(profile);
 
