@@ -43,6 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category postCategory(Category category) {
 
+        System.out.print(category.getName());
+
         category.setName(category.getName());
         categoryRepository.save(category);
         Category newCategory = categoryRepository.getById(category.getId());

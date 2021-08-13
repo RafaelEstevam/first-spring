@@ -63,8 +63,8 @@ CREATE TABLE `spring`.`task` (
     `created_at` DATE NULL DEFAULT CURRENT_TIMESTAMP ,
     `updated_at` DATE NULL DEFAULT CURRENT_TIMESTAMP ,
     PRIMARY KEY (`id`),
-    FOREIGN KEY task_category_fk (`category_id`) REFERENCES category(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY task_profile_fk (`profile_id`) REFERENCES profile(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY task_category_fk (`category_id`) REFERENCES category(`id`),
+    FOREIGN KEY task_profile_fk (`profile_id`) REFERENCES profile(`id`)
 ) ENGINE = InnoDB;
 
 INSERT INTO auth values(1, "USER");

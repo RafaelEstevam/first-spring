@@ -14,7 +14,7 @@ public interface TaskService {
 
     public Task postTask(Task profile);
 
-    public Task putTask(Task profile);
+    // public Task putTask(Task profile);
 
     public void deleteTaskById(Long id);
     

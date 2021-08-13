@@ -2,19 +2,37 @@ package fatec.sp.gov.br.firstspring.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import fatec.sp.gov.br.firstspring.entity.Category;
+import fatec.sp.gov.br.firstspring.entity.Profile;
 import fatec.sp.gov.br.firstspring.entity.Task;
+
+import fatec.sp.gov.br.firstspring.repository.CategoryRepository;
+import fatec.sp.gov.br.firstspring.repository.LoginRepository;
+import fatec.sp.gov.br.firstspring.repository.ProfileRepository;
 import fatec.sp.gov.br.firstspring.repository.TaskRepository;
+
 
 @Service("taskService")
 public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CategoryServiceImpl categoryServiceImpl;
 
     @Override
     public void deleteTaskById(Long id) {
@@ -40,15 +58,28 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task postTask(Task profile) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    @Transactional
+    public Task postTask(Task task) {
 
-    @Override
-    public Task putTask(Task profile) {
-        // TODO Auto-generated method stub
-        return null;
+        if(Objects.nonNull(task.getCategory())){
+            if(task.getCategory().getId() > 0){
+                Category category = categoryRepository.getById(task.getCategory().getId());
+                task.setCategory(category);
+            }else{
+                Category newCategory = categoryServiceImpl.postCategory(task.getCategory());
+                task.setCategory(newCategory);
+            }
+        }
+
+        if(Objects.nonNull(task.getProfile())){
+            Profile profile = profileRepository.getById(task.getProfile().getId());
+            task.setProfile(profile);
+        }
+
+        taskRepository.save(task);
+        Task newTask = taskRepository.getById(task.getId());
+
+        return newTask;
     }
 
     @Override

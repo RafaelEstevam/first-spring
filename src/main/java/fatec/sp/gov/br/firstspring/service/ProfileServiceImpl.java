@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fatec.sp.gov.br.firstspring.entity.Login;
 import fatec.sp.gov.br.firstspring.entity.Profile;
@@ -40,6 +41,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    @Transactional
     public Profile postProfile(Profile profile) {
 
         Login login = loginRepository.getById(profile.getLogin().getId());
