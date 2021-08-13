@@ -25,19 +25,19 @@ public class TaskController {
 
     @JsonView(View.Task.class)
     @GetMapping(value = "/all")
-    public List<Task> getAllProfiles(){
+    public List<Task> getAllTasks(){
         return taskService.getAll();
     }
 
     @JsonView(View.Task.class)
     @GetMapping(value = "/{id}")
-    public Task getProfile(@PathVariable("id") long id){
+    public Task getTask(@PathVariable("id") long id){
         return taskService.getTaskById(id);
     }
 
     @JsonView(View.Task.class)
-    @GetMapping(value = "/{id}")
-    public List<Task> getTasksbyProfileId(@PathVariable("id") long id){
+    @GetMapping(value = "/profile/{id}")
+    public List<Task> getTasksbyProfile(@PathVariable("id") String id){
         return taskService.getTasksByProfileId(id);
     }
     

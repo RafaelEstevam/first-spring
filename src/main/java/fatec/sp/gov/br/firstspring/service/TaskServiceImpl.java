@@ -52,9 +52,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getTasksByProfileId(long id) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Task> getTasksByProfileId(String id) {
+        if(id.equals("null")){
+            List<Task> tasks = new ArrayList<Task>();
+            for(Task task: taskRepository.findByNull()){
+                tasks.add(task);
+            }
+            return tasks;
+        }else{
+            List<Task> tasks = new ArrayList<Task>();
+            for(Task task: taskRepository.findByTasksProfileId(id)){
+                tasks.add(task);
+            }
+            return tasks;
+        }
     }
-
 }

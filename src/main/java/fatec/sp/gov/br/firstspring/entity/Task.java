@@ -11,41 +11,55 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fatec.sp.gov.br.firstspring.view.View;
+
 @Entity
 @Table(name = "task")
 public class Task {
     
+    @JsonView(View.Task.class)
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonView(View.Task.class)
     @OneToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @JsonView(View.Task.class)
     @OneToOne
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile;
 
+    @JsonView(View.Task.class)
     @Column(name = "title")
     private String title;
 
+    @JsonView(View.Task.class)
     @Column(name = "description")
     private String description;
 
+    @JsonView(View.Task.class)
     @Column(name = "status")
     private String status;
 
+    @JsonView(View.Task.class)
     @Column(name = "progress")
     private Integer progress;
 
+    @JsonView(View.Task.class)
     @Column(name = "deadline")
     private Date deadline;
 
+    @JsonView(View.Task.class)
     @Column(name = "created_at")
     private Date created_at;
 
+    @JsonView(View.Task.class)
     @Column(name = "updated_at")
     private Date updated_at;
 

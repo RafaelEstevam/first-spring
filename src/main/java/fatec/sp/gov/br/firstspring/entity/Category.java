@@ -16,12 +16,12 @@ import fatec.sp.gov.br.firstspring.view.View;
 public class Category {
     
     @Id
-    @JsonView(View.Category.class)
+    @JsonView({View.Category.class, View.Task.class})
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonView(View.Category.class)
+    @JsonView({View.Category.class, View.Task.class})
     @Column(name = "name")
     private String name;
 
