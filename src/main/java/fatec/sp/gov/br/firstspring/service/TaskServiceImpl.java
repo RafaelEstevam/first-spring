@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fatec.sp.gov.br.firstspring.entity.Category;
 import fatec.sp.gov.br.firstspring.entity.Profile;
 import fatec.sp.gov.br.firstspring.entity.Task;
-
+import fatec.sp.gov.br.firstspring.exception.NotFoundException;
 import fatec.sp.gov.br.firstspring.repository.CategoryRepository;
 import fatec.sp.gov.br.firstspring.repository.LoginRepository;
 import fatec.sp.gov.br.firstspring.repository.ProfileRepository;
@@ -83,19 +83,26 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getTasksByProfileId(String id) {
-        if(id.equals("null")){
-            List<Task> tasks = new ArrayList<Task>();
-            for(Task task: taskRepository.findByNull()){
-                tasks.add(task);
-            }
-            return tasks;
-        }else{
-            List<Task> tasks = new ArrayList<Task>();
-            for(Task task: taskRepository.findByTasksProfileId(id)){
-                tasks.add(task);
-            }
-            return tasks;
+    public List<Task> getTasksByProfileId(Long id) {
+
+        List<Task> tasks = new ArrayList<Task>();
+        for(Task task: taskRepository.findByTasksProfileId(id)){
+            tasks.add(task);
         }
+        return tasks;
+        
+        // if(id.equals("null")){
+        //     List<Task> tasks = new ArrayList<Task>();
+        //     for(Task task: taskRepository.findByNull()){
+        //         tasks.add(task);
+        //     }
+        //     return tasks;
+        // }else{
+        //     List<Task> tasks = new ArrayList<Task>();
+        //     for(Task task: taskRepository.findByTasksProfileId(id)){
+        //         tasks.add(task);
+        //     }
+        //     return tasks;
+        // }
     }
 }

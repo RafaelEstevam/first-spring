@@ -12,11 +12,15 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     //TO DO , why server only work with native query?
     //TO DO , I cant use more querys in repository, why?
-    
-    @Query(nativeQuery = true, value="select * from task t where t.profile_id = ?1")
-    List<Task> findByTasksProfileId(String id);
 
-    @Query(nativeQuery = true, value="select * from task t where t.profile_id IS NULL")
-    List<Task> findByNull();
+    @Query("SELECT t FROM Task t JOIN t.profile p WHERE p.id = :id")
+    List<Task> findByTasksProfileId(@Param("id") Long id);
+    
+    // @Query(nativeQuery = true, value="select * from task t where t.profile_id = ?1")
+    // List<Task> findByTasksProfileId(String id);
+
+    // @Query(nativeQuery = true, value="select * from task t where t.profile_id IS NULL");
+    // @Query("SELECT t FROM Task t JOIN t.profile p WHERE p.id IS NULL")
+    // List<Task> findByNull();
 
 }

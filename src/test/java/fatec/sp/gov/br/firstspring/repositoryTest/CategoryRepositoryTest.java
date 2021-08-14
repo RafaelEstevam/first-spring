@@ -24,7 +24,7 @@ public class CategoryRepositoryTest {
     @Test
     void categoryRepositorySaveCategoryOk(){
         Category category = new Category();
-        category.setName("Backend");
+        category.setName("adsf");
         categoryRepository.save(category);
         assertNotNull(category.getId());
     }

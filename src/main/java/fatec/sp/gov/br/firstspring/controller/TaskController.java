@@ -43,7 +43,7 @@ public class TaskController {
 
     @JsonView(View.Task.class)
     @GetMapping(value = "/profile/{id}")
-    public List<Task> getTasksbyProfile(@PathVariable("id") String id){
+    public List<Task> getTasksbyProfile(@PathVariable("id") Long id){
         return taskService.getTasksByProfileId(id);
     }
 

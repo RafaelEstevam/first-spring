@@ -8,7 +8,9 @@ public interface TaskService {
 
     public List<Task> getAll();
 
-    public List<Task> getTasksByProfileId(String id);
+    public List<Task> getTasksByProfileId(Long id);
+
+    // public List<Task> getTasksByProfileNull();
 
     public Task getTaskById(long id);
 
