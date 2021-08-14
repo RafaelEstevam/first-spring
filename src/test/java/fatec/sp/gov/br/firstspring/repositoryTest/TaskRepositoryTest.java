@@ -1,7 +1,6 @@
 package fatec.sp.gov.br.firstspring.repositoryTest;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Date;
 
@@ -10,7 +9,6 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 
 import fatec.sp.gov.br.firstspring.entity.Category;
@@ -21,11 +19,15 @@ import fatec.sp.gov.br.firstspring.repository.CategoryRepository;
 import fatec.sp.gov.br.firstspring.repository.LoginRepository;
 import fatec.sp.gov.br.firstspring.repository.ProfileRepository;
 import fatec.sp.gov.br.firstspring.repository.TaskRepository;
+import fatec.sp.gov.br.firstspring.service.TaskService;
 
 @SpringBootTest
 @Transactional
 @Rollback
 public class TaskRepositoryTest {
+
+    @Autowired
+    private TaskService taskService;
 
     @Autowired
     private TaskRepository taskRepository;
@@ -57,13 +59,6 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    void taskRepositoryFindByTasksProfileIdAndCategoryId(){
-        long profileId = 1;
-        long categoryId = 1;
-        assertNotNull(taskRepository.findByTasksProfileIdAndCategoryId(profileId, categoryId));
-    }
-
-    @Test
     void taskRepositorySaveTaskOk(){
 
         Task task = new Task();
@@ -72,15 +67,7 @@ public class TaskRepositoryTest {
 
         assertNotNull(task.getId());
     }
-
-    @Test
-    void taskRepositorySaveTaskWithoutTitleError() {
-        Task task = new Task();
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            taskRepository.save(task);
-        });
-    }
-
+    
     @Test
     void TaskRepositorySaveTaskWithProfileAndCategoryOk(){
 
@@ -104,7 +91,7 @@ public class TaskRepositoryTest {
     }
     
     @Test
-    void TaskRepositoryDeleteTaskOk(){
+    void TaskRepositoryDeleteTaskThatExistsOk(){
         long id = 1;
         taskRepository.deleteById(id);
     }
