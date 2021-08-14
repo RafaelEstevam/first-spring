@@ -105,6 +105,18 @@ public class TaskServiceImplTest {
         });
     }
 
+    @Test
+    void taskServicePutTaskOk(){
+        long id = 1;
+        Task task = taskRepository.getById(id);
+        task.setTitle("Title Edited");
+        
+        taskService.postTask(task);
+
+        Task updatedTask = taskRepository.getById(id);
+        assertEquals("Title Edited", updatedTask.getTitle());
+    }
+
     // @Test
     // void TaskServiceSaveTaskWithProfileAndCategoryOk(){
 
@@ -160,20 +172,6 @@ public class TaskServiceImplTest {
     //         taskService.postTask(task);
     //     });
     // }
-
-    @Test
-    void taskServicePutTaskOk(){
-
-        long id = 1;
-        Task task = taskRepository.getById(id);
-
-        task.setTitle("Title Edited");
-        
-        taskService.postTask(task);
-
-        Task updatedTask = taskRepository.getById(id);
-        assertEquals("Title Edited", updatedTask.getTitle());
-    }
 
     // @Test
     // void taskServicePutCompleteTaskOk(){
