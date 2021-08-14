@@ -59,6 +59,12 @@ public class TaskRepositoryTest {
     }
 
     @Test
+    void taskRepositoryGetByCategoryOk(){
+        long id = 1;
+        assertNotNull(taskRepository.findByTasksCategoryId(id));
+    }
+
+    @Test
     void taskRepositorySaveTaskOk(){
 
         Task task = new Task();

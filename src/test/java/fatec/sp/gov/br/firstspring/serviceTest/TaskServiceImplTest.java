@@ -2,10 +2,7 @@ package fatec.sp.gov.br.firstspring.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -15,16 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 
-import fatec.sp.gov.br.firstspring.entity.Category;
-import fatec.sp.gov.br.firstspring.entity.Login;
-import fatec.sp.gov.br.firstspring.entity.Profile;
 import fatec.sp.gov.br.firstspring.entity.Task;
-import fatec.sp.gov.br.firstspring.repository.CategoryRepository;
-import fatec.sp.gov.br.firstspring.repository.LoginRepository;
-import fatec.sp.gov.br.firstspring.repository.ProfileRepository;
 import fatec.sp.gov.br.firstspring.repository.TaskRepository;
-import fatec.sp.gov.br.firstspring.service.CategoryService;
-import fatec.sp.gov.br.firstspring.service.ProfileService;
 import fatec.sp.gov.br.firstspring.service.TaskService;
 
 @SpringBootTest
@@ -36,22 +25,7 @@ public class TaskServiceImplTest {
     private TaskService taskService;
 
     @Autowired
-    private ProfileService profileService;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
     private TaskRepository taskRepository;
-
-    @Autowired
-    private ProfileRepository profileRepository;
-
-    @Autowired
-    private LoginRepository loginRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Test
     void taskServiceDeleteTaskById(){
@@ -78,6 +52,12 @@ public class TaskServiceImplTest {
     void taskServiceGetTasksByProfileIdOk(){
         long id = 1;
         assertNotNull(taskService.getTasksByProfileId(id));
+    }
+
+    @Test
+    void taskServiceGetTasksByCategoryIdOk(){
+        long id = 1;
+        assertNotNull(taskService.getTasksByCategoryId(id));
     }
 
     @Test

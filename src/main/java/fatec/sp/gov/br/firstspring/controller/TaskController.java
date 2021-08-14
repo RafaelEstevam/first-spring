@@ -50,8 +50,14 @@ public class TaskController {
     }
 
     @JsonView(View.Task.class)
+    @GetMapping(value = "/category/{id}")
+    public List<Task> getTasksbyCategory(@PathVariable("id") Long id){
+        return taskService.getTasksByCategoryId(id);
+    }
+
+    @JsonView(View.Task.class)
     @GetMapping(value = "/search/")
-    public List<Task> getTasksbyProfile(@PathParam("profileId") Long profileId, @PathParam("categoryId") Long categoryId){
+    public List<Task> getTasksbyProfileAndCategory(@PathParam("profileId") Long profileId, @PathParam("categoryId") Long categoryId){
         return taskService.searchTaskByProfileIdAndCategoryId(profileId, categoryId);
     }
 

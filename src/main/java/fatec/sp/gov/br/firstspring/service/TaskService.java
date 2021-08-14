@@ -10,6 +10,8 @@ public interface TaskService {
 
     public List<Task> getTasksByProfileId(Long id);
 
+    public List<Task> getTasksByCategoryId(Long id);
+
     // public List<Task> getTasksByProfileNull();
 
     public Task getTaskById(long id);

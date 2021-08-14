@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,12 +27,12 @@ public class Task {
     private long id;
 
     @JsonView(View.Task.class)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @JsonView(View.Task.class)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile;
 

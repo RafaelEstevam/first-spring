@@ -93,6 +93,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> getTasksByCategoryId(Long id) {
+
+        List<Task> tasks = new ArrayList<Task>();
+        for(Task task: taskRepository.findByTasksCategoryId(id)){
+            tasks.add(task);
+        }
+        return tasks;
+    }
+
+    @Override
     public List<Task> searchTaskByProfileIdAndCategoryId(long profileId, Long categoryId) {
         List<Task> tasks = new ArrayList<Task>();
         for(Task task: taskRepository.findByTasksProfileIdAndCategoryId(profileId, categoryId)){
