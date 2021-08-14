@@ -19,5 +19,7 @@ public interface TaskService {
     // public Task putTask(Task profile);
 
     public void deleteTaskById(Long id);
+
+    public List<Task> searchTaskByProfileIdAndCategoryId(long profileId, Long categoryId);
     
 }

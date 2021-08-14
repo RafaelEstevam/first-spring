@@ -90,19 +90,16 @@ public class TaskServiceImpl implements TaskService {
             tasks.add(task);
         }
         return tasks;
-        
-        // if(id.equals("null")){
-        //     List<Task> tasks = new ArrayList<Task>();
-        //     for(Task task: taskRepository.findByNull()){
-        //         tasks.add(task);
-        //     }
-        //     return tasks;
-        // }else{
-        //     List<Task> tasks = new ArrayList<Task>();
-        //     for(Task task: taskRepository.findByTasksProfileId(id)){
-        //         tasks.add(task);
-        //     }
-        //     return tasks;
-        // }
     }
+
+    @Override
+    public List<Task> searchTaskByProfileIdAndCategoryId(long profileId, Long categoryId) {
+        List<Task> tasks = new ArrayList<Task>();
+        for(Task task: taskRepository.findByTasksProfileIdAndCategoryId(profileId, categoryId)){
+            tasks.add(task);
+        }
+        return tasks;
+    }
+
+
 }

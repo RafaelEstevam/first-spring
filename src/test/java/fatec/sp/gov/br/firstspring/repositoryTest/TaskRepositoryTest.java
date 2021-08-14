@@ -1,9 +1,7 @@
 package fatec.sp.gov.br.firstspring.repositoryTest;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
@@ -12,7 +10,7 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Rollback;
 
 import fatec.sp.gov.br.firstspring.entity.Category;
@@ -59,6 +57,13 @@ public class TaskRepositoryTest {
     }
 
     @Test
+    void taskRepositoryFindByTasksProfileIdAndCategoryId(){
+        long profileId = 1;
+        long categoryId = 1;
+        assertNotNull(taskRepository.findByTasksProfileIdAndCategoryId(profileId, categoryId));
+    }
+
+    @Test
     void taskRepositorySaveTaskOk(){
 
         Task task = new Task();
@@ -67,7 +72,15 @@ public class TaskRepositoryTest {
 
         assertNotNull(task.getId());
     }
-    
+
+    @Test
+    void taskRepositorySaveTaskWithoutTitleError() {
+        Task task = new Task();
+        assertThrows(DataIntegrityViolationException.class, () -> {
+            taskRepository.save(task);
+        });
+    }
+
     @Test
     void TaskRepositorySaveTaskWithProfileAndCategoryOk(){
 
@@ -91,11 +104,9 @@ public class TaskRepositoryTest {
     }
     
     @Test
-    void TaskRepositoryDeleteTaskThatExistsOk(){
-
+    void TaskRepositoryDeleteTaskOk(){
         long id = 1;
         taskRepository.deleteById(id);
-
     }
 
 }

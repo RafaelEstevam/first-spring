@@ -2,6 +2,8 @@ package fatec.sp.gov.br.firstspring.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,12 @@ public class TaskController {
     @GetMapping(value = "/profile/{id}")
     public List<Task> getTasksbyProfile(@PathVariable("id") Long id){
         return taskService.getTasksByProfileId(id);
+    }
+
+    @JsonView(View.Task.class)
+    @GetMapping(value = "/search/")
+    public List<Task> getTasksbyProfile(@PathParam("profileId") Long profileId, @PathParam("categoryId") Long categoryId){
+        return taskService.searchTaskByProfileIdAndCategoryId(profileId, categoryId);
     }
 
     @JsonView(View.Task.class)
