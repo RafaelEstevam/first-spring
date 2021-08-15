@@ -77,7 +77,7 @@ public class TaskRepositoryTest {
     @Test
     void TaskRepositorySaveTaskWithProfileAndCategoryOk(){
 
-        Login login = loginRepository.findByEmail("teste@teste.com");
+        Login login = loginRepository.findByEmail("admin");
         Profile profile = profileRepository.findProfileByLoginEmail(login.getEmail());
         Category category = categoryRepository.findCategoryByName("Front-end");
 

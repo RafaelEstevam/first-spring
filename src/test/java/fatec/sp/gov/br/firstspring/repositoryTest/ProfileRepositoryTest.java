@@ -66,7 +66,7 @@ public class ProfileRepositoryTest {
     @Test
     void profileRepositoryFindProfileByLoginEmailOk(){
 
-        Login login = loginRepository.findByEmail("teste@teste.com");
+        Login login = loginRepository.findByEmail("admin");
         Profile profile = profileRepository.findProfileByLoginEmail(login.getEmail());
         assertNotNull(profile.getId());
 

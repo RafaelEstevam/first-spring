@@ -38,13 +38,13 @@ public class AuthRepositoryTest {
 
 	@Test
 	void authRepositoryFindByPermissionOk(){
-		Auth auth = authRepository.findByPermission("USER");
+		Auth auth = authRepository.findByPermission("ROLE_USER");
 		assertNotNull(authRepository.findByPermission(auth.getPermission()));
 	}
 
 	@Test
 	void loginRepositorySaveLoginOk(){
-		Auth auth = authRepository.findByPermission("ADMINISTRATOR");
+		Auth auth = authRepository.findByPermission("ROLE_ADMIN");
 		assertNotNull(authRepository.findByPermission(auth.getPermission()));
 
 		Login login = new Login();
