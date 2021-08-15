@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
 
 import fatec.sp.gov.br.firstspring.entity.Category;
@@ -42,8 +41,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category postCategory(Category category) {
-
-        System.out.print(category.getName());
 
         category.setName(category.getName());
         categoryRepository.save(category);

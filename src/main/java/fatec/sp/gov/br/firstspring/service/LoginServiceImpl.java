@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fatec.sp.gov.br.firstspring.entity.Auth;
@@ -21,6 +27,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private AuthRepository authRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -51,6 +60,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Login> getAll() {
         List<Login> logins = new ArrayList<Login>();
         for(Login login: loginRepository.findAll()){
@@ -62,17 +72,17 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Login postLogin(Login login) {
 
-        Auth auth = authRepository.findByPermission("USER");
+        Auth auth = authRepository.findByPermission("ROLE_USER");
 
         login.setEmail(login.getEmail());
-		login.setPassword(login.getPassword());
+		login.setPassword(passwordEncoder.encode(login.getPassword()));
 		login.setAuthorizations(new HashSet<Auth>());
 		login.getAuthorizations().add(auth);
         loginRepository.save(login);
 
         Login newLogin = loginRepository.getById(login.getId());
 
-        if(auth != null && newLogin != null ){
+        if(newLogin != null){
             return newLogin;
         }
 
@@ -100,6 +110,27 @@ public class LoginServiceImpl implements LoginService {
             throw new RuntimeException("User can't be save");
         }
         
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Login login = loginRepository.findByEmail(email);
+
+        if(login == null){
+            throw new UsernameNotFoundException("User " + email + "not found.");
+        }
+        
+        /**
+         * Set Login data in Spring boot User
+         */
+
+        return User.builder().username(email).password(login.getPassword())
+        .authorities(login.getAuthorizations().stream()
+            .map(Auth::getPermission).collect(Collectors.toList())
+            .toArray(new String[login.getAuthorizations().size()]))
+        .build();
+
     }
 
     @Override

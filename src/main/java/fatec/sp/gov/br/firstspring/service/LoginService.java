@@ -2,10 +2,12 @@ package fatec.sp.gov.br.firstspring.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import fatec.sp.gov.br.firstspring.entity.Auth;
 import fatec.sp.gov.br.firstspring.entity.Login;
 
-public interface LoginService {
+public interface LoginService extends UserDetailsService {
 
     public List<Login> getAll();
 

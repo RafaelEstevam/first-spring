@@ -67,8 +67,8 @@ CREATE TABLE `spring`.`task` (
     FOREIGN KEY task_profile_fk (`profile_id`) REFERENCES profile(`id`)
 ) ENGINE = InnoDB;
 
-INSERT INTO auth values(1, "USER");
-INSERT INTO auth values(2, "ADMINISTRATOR");
+INSERT INTO auth values(1, "ROLE_USER");
+INSERT INTO auth values(2, "ROLE_ADMIN");
 INSERT INTO login values(1, "teste@teste.com", "teste123");
 INSERT INTO auth_login values(2, 1);
 
