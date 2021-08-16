@@ -33,6 +33,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Auth getAuthorizationsById(Long id) {
         Auth auth = authRepository.getById(id);
         if(auth != null){
@@ -42,6 +43,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Login getLoginByEmail(String email) {
         Login login = loginRepository.findByEmail(email);
         if(login != null){
@@ -51,6 +53,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Login getLoginById(Long id) {
         Optional<Login> login = loginRepository.findById(id);
         if(login.isPresent()){
@@ -70,6 +73,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Login postLogin(Login login) {
 
         Auth auth = authRepository.findByPermission("ROLE_USER");
@@ -91,6 +95,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Login putLogin(Login newLogin) {
 
         Login login = loginRepository.getById(newLogin.getId());
@@ -109,7 +114,6 @@ public class LoginServiceImpl implements LoginService {
         }catch(Exception e){
             throw new RuntimeException("User can't be save");
         }
-        
     }
 
     @Override
@@ -134,6 +138,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteLoginById(Long id) {
         loginRepository.deleteById(id);
     }

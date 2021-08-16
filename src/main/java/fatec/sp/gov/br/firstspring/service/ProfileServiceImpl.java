@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Profile getProfileById(long id) {
         Optional<Profile> profile = profileRepository.findById(id);
         if(profile.isPresent()){
@@ -42,6 +44,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     @Transactional
+    @PreAuthorize("isAuthenticated()")
     public Profile postProfile(Profile profile) {
 
         Login login = loginRepository.getById(profile.getLogin().getId());
@@ -69,11 +72,13 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void deleteProfileById(Long id) {
         profileRepository.deleteById(id);
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Profile putProfile(Profile newProfile) {
 
         Profile profile = profileRepository.getById(newProfile.getId());

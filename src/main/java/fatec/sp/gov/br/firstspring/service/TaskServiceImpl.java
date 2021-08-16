@@ -6,15 +6,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fatec.sp.gov.br.firstspring.entity.Category;
 import fatec.sp.gov.br.firstspring.entity.Profile;
 import fatec.sp.gov.br.firstspring.entity.Task;
-import fatec.sp.gov.br.firstspring.exception.NotFoundException;
 import fatec.sp.gov.br.firstspring.repository.CategoryRepository;
-import fatec.sp.gov.br.firstspring.repository.LoginRepository;
 import fatec.sp.gov.br.firstspring.repository.ProfileRepository;
 import fatec.sp.gov.br.firstspring.repository.TaskRepository;
 
@@ -40,6 +39,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Task> getAll() {
         List<Task> tasks = new ArrayList<Task>();
         for(Task task: taskRepository.findAll()){
@@ -49,6 +49,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Task getTaskById(long id) {
         Optional<Task> task = taskRepository.findById(id);
         if(task.isPresent()){
@@ -59,6 +60,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
+    @PreAuthorize("isAuthenticated()")
     public Task postTask(Task task) {
 
         if(Objects.nonNull(task.getCategory())){
@@ -83,6 +85,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Task> getTasksByProfileId(Long id) {
 
         List<Task> tasks = new ArrayList<Task>();
@@ -93,6 +96,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Task> getTasksByCategoryId(Long id) {
 
         List<Task> tasks = new ArrayList<Task>();
@@ -103,6 +107,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Task> searchTaskByProfileIdAndCategoryId(long profileId, Long categoryId) {
         List<Task> tasks = new ArrayList<Task>();
         for(Task task: taskRepository.findByTasksProfileIdAndCategoryId(profileId, categoryId)){

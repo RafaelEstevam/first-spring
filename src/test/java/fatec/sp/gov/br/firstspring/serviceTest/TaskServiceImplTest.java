@@ -10,12 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 
 import fatec.sp.gov.br.firstspring.entity.Task;
 import fatec.sp.gov.br.firstspring.repository.TaskRepository;
 import fatec.sp.gov.br.firstspring.service.TaskService;
 
+@WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
 @SpringBootTest
 @Transactional
 @Rollback

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import fatec.sp.gov.br.firstspring.entity.Category;
@@ -17,6 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Category> getAll() {
         List<Category> categories = new ArrayList<Category>();
         for(Category category: categoryRepository.findAll()){
@@ -26,11 +28,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void deleteCategoryById(Long id) {
         categoryRepository.deleteById(id);
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Category getCategoryById(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isPresent()){
@@ -40,6 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Category postCategory(Category category) {
 
         category.setName(category.getName());
@@ -54,6 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Category putCategory(Category newCategory) {
 
         //TODO Why return exception when return the updated category?
