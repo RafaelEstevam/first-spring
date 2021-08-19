@@ -36,7 +36,6 @@ public class Login {
 
     @JsonView(View.Login.class)
     @ManyToMany(fetch = FetchType.EAGER) //how you get data
-    //TODO Whats is the diference between EAGER and LAZY?
     @JoinTable(name = "auth_login",
         joinColumns = {
             @JoinColumn(name = "login_id") //link collumn with this class (login)
