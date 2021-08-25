@@ -12,6 +12,8 @@ public interface TaskService {
 
     public List<Task> getTasksByCategoryId(Long id);
 
+    public List<Task> getTasksByStatus(String status);
+
     // public List<Task> getTasksByProfileNull();
 
     public Task getTaskById(long id);

@@ -23,8 +23,11 @@ public class TokenController {
     @Autowired
     private AuthenticationManager authManager;
     
-    @PostMapping()
+    @PostMapping("")
     public LoginDto getToken(@RequestBody LoginDto loginDto) throws JsonProcessingException{
+
+        System.out.print(loginDto.getEmail());
+        System.out.print(loginDto.getPassword());
 
         Authentication auth = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
         auth = authManager.authenticate(auth);

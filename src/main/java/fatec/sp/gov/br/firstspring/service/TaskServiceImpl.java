@@ -108,6 +108,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @PreAuthorize("isAuthenticated()")
+    public List<Task> getTasksByStatus(String status) {
+
+        List<Task> tasks = new ArrayList<Task>();
+        for(Task task: taskRepository.findByTasksByStatus(status)){
+            tasks.add(task);
+        }
+        return tasks;
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Task> searchTaskByProfileIdAndCategoryId(long profileId, Long categoryId) {
         List<Task> tasks = new ArrayList<Task>();
         for(Task task: taskRepository.findByTasksProfileIdAndCategoryId(profileId, categoryId)){

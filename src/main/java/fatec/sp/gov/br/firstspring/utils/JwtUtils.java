@@ -37,7 +37,7 @@ public class JwtUtils {
         String userJson = mapper.writeValueAsString(userWithoutPass);
 
         Date now = new Date();
-        Long hour = 1000L * 60L * 60L; //One hour
+        Long hour = (1000L * 60L * 60L) * 24; //One Day
 
         return Jwts.builder().claim("userDetails", userJson)
             .setIssuer("br.gov.sp.fatec")
