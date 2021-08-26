@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import fatec.sp.gov.br.firstspring.entity.Auth;
 import fatec.sp.gov.br.firstspring.entity.Login;
+import fatec.sp.gov.br.firstspring.entity.Profile;
 import fatec.sp.gov.br.firstspring.repository.AuthRepository;
 import fatec.sp.gov.br.firstspring.repository.LoginRepository;
 
@@ -102,7 +103,9 @@ public class LoginServiceImpl implements LoginService {
 
         login.setId(newLogin.getId());
         login.setEmail(newLogin.getEmail());
-        login.setPassword(newLogin.getPassword());
+        if(newLogin.getPassword() != null){
+            login.setPassword(passwordEncoder.encode(newLogin.getPassword()));
+        }
 
         //TODO Update authorization List;
         // login.setAuthorizations(new HashSet<Auth>(newLogin.getAuthorizations()));
@@ -141,6 +144,16 @@ public class LoginServiceImpl implements LoginService {
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteLoginById(Long id) {
         loginRepository.deleteById(id);
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public Profile getProfileByLoginId(Long id) {
+        Profile profile = loginRepository.getProfileByLoginId(id);
+        if(profile != null){
+            return profile;
+        }
+        throw new RuntimeException("User not found");
     }
     
 }

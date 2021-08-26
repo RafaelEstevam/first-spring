@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fatec.sp.gov.br.firstspring.entity.Login;
+import fatec.sp.gov.br.firstspring.entity.Profile;
 import fatec.sp.gov.br.firstspring.service.LoginService;
 import fatec.sp.gov.br.firstspring.view.View;
 
@@ -64,6 +65,12 @@ public class LoginController {
     public ResponseEntity<Login> delete(@PathVariable("id") Long id) {
         loginService.deleteLoginById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @JsonView(View.Profile.class)
+    @GetMapping(value="/profile/{id}")
+    public Profile getProfileByLogin (@PathVariable("id") Long id){
+        return loginService.getProfileByLoginId(id);
     }
 
 }
