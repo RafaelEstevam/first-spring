@@ -24,15 +24,16 @@ public class AuthFilter extends GenericFilterBean{
 
         try {
             HttpServletRequest servletRequest = (HttpServletRequest) request;
-            String authorization = servletRequest.getHeader(HttpHeaders.AUTHORIZATION); //Get in Request Header
+            String authorization = servletRequest.getHeader(HttpHeaders.AUTHORIZATION); //Pega o header da requisição
         
             if (authorization != null) {
                 Authentication credentials = JwtUtils.parseToken(authorization.replaceAll("Bearer ", ""));
-                SecurityContextHolder.getContext().setAuthentication(credentials); //singleton
+                SecurityContextHolder.getContext().setAuthentication(credentials);
+                //singleton, ou seja, só pode haver uma única chamada dele em todo o sistema. Get context, pega a instância local. Força a autenticação por token.
             }
             
             chain.doFilter(request, response);
-        } catch (Throwable t) {
+        } catch (Throwable t) { //Caso a autenticação falhe, retorna 401 (Não autorizado)
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         servletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, t.getMessage());
         }

@@ -129,19 +129,19 @@ public class LoginServiceImpl implements LoginService {
         }
         
         /**
-         * Set Login data in Spring boot User
+         * Passar dados do login para o Usuario
          */
 
         return User.builder().username(email).password(login.getPassword())
         .authorities(login.getAuthorizations().stream()
-            .map(Auth::getPermission).collect(Collectors.toList())
-            .toArray(new String[login.getAuthorizations().size()]))
+            .map(Auth::getPermission).collect(Collectors.toList()) //Pega a lista de autorizações, usa só a permissão
+            .toArray(new String[login.getAuthorizations().size()])) //Monta um vetor de string
         .build();
 
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")// Somente usuarios do tipo ADMIN podem fazer a ação
     public void deleteLoginById(Long id) {
         loginRepository.deleteById(id);
     }

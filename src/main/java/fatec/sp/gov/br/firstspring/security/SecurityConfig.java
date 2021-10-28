@@ -1,5 +1,5 @@
 /**
- * Configuration Class of spring security
+ * Classe de configuração do spring security
  */
 
 package fatec.sp.gov.br.firstspring.security;
@@ -20,25 +20,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import fatec.sp.gov.br.firstspring.filter.AuthFilter;
 
-@EnableWebSecurity //Enable default spring security config
-@EnableGlobalMethodSecurity(prePostEnabled = true) // Enable security by annotation. Where have annotation, its safe.
+@EnableWebSecurity //Habilitar configurações padrão do spring security
+@EnableGlobalMethodSecurity(prePostEnabled = true) //Habilitar a segurança por anotação
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;//Injeta o serviço que autentica o usuário. Neste projeto, o LoginService.
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() //disable when front its use REST services to .
-        .addFilterBefore(new AuthFilter(), UsernamePasswordAuthenticationFilter.class) //Custom filter to validate user
-        .sessionManagement() //Between requests, clear memory
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable() //Desabilitar front dentro do Spring. A integração será via REST
+        .addFilterBefore(new AuthFilter(), UsernamePasswordAuthenticationFilter.class) //Filtro customizado para validar o usuário
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //Limpar memória entre requisições
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         /**
-         * How Spring make the authentication
+         * Como o spring faz a autenticação. Login
+         * Pra fazer o login, vai usar o serviço
          */
         auth.userDetailsService(userDetailsService);
     }
@@ -46,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEnconderBean(){
         /**
-         * Use Spring Bycrypt Password. Not is possible to annotate third-party class.
-         * If change Password Crypt type, this change can make here.
+         * Indica ao Spring security qual será o Encoder de senha usado
+         * @Bean disponibiliza esta implementação para fazer o autowired dela. Usado em classes
+         * que não se tem o controle.
          */
         return new BCryptPasswordEncoder();
     }
@@ -56,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         /**
-         * Spring not allow the method. Is necessary set a Bean and Override to enable this method
+         * O spring não disponibiliza o método. É necessário dar um Override e também anota-lo para disponibilizar
          */
         return super.authenticationManagerBean();
     }

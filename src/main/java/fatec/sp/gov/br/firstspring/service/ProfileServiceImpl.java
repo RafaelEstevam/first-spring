@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     @Transactional
     @PreAuthorize("isAuthenticated()")
+    // @PostAuthorize("");
     public Profile postProfile(Profile profile) {
 
         Login login = loginRepository.getById(profile.getLogin().getId());

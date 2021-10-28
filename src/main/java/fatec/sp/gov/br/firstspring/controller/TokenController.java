@@ -21,7 +21,7 @@ import fatec.sp.gov.br.firstspring.utils.JwtUtils;
 public class TokenController {
 
     @Autowired
-    private AuthenticationManager authManager;
+    private AuthenticationManager authManager;//Realiza o processo de autenticação
     
     @PostMapping("")
     public LoginDto getToken(@RequestBody LoginDto loginDto) throws JsonProcessingException{
@@ -29,8 +29,9 @@ public class TokenController {
         System.out.print(loginDto.getEmail());
         System.out.print(loginDto.getPassword());
 
+        //Interface
         Authentication auth = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
-        auth = authManager.authenticate(auth);
+        auth = authManager.authenticate(auth); //Serviço para autenticar. Retorna um objeto do tipo authentication
 
         loginDto.setPassword(null);
         loginDto.setToken(JwtUtils.generateToken(auth));

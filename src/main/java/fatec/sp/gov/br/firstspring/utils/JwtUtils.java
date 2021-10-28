@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtils {
 
-    private static final String KEY = "spring.jwt.sec";
+    private static final String KEY = "spring.jwt.sec"; //chave para validar o token
     
     public static String generateToken(Authentication user) throws JsonProcessingException {
         
@@ -28,32 +28,36 @@ public class JwtUtils {
 
         userWithoutPass.setEmail(user.getName());
 
-        //IF Have permission, get permissions in user and set in new user created
+        //Se tiver uma autorização, pega a primeira e salva no usuário.
         if(!user.getAuthorities().isEmpty()){
             userWithoutPass.setPermission(user.getAuthorities().iterator().next().getAuthority());
         }
 
-        //Generate JSON with userData
+        //Gerar Json dos dados do usuário
         String userJson = mapper.writeValueAsString(userWithoutPass);
 
         Date now = new Date();
         Long hour = (1000L * 60L * 60L) * 24; //One Day
 
         return Jwts.builder().claim("userDetails", userJson)
-            .setIssuer("br.gov.sp.fatec")
-            .setSubject(user.getName())
-            .setExpiration(new Date(now.getTime() + hour))
-            .signWith(SignatureAlgorithm.HS512, KEY).compact();
+            .setIssuer("br.gov.sp.fatec")//Quem está gerando
+            .setSubject(user.getName()) //Para quem se destina
+            .setExpiration(new Date(now.getTime() + hour))//Tempo de expiração (24 horas)
+            .signWith(SignatureAlgorithm.HS512, KEY)//Assinatura do JWT
+            .compact(); //Retorna um token com os dados 
       }
     
       public static Authentication parseToken(String token) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper mapper = new ObjectMapper();
 
-        //Set key to read token and get userDetails data
-        String credentialsJson = Jwts.parser().setSigningKey(KEY)
-            .parseClaimsJws(token).getBody().get("userDetails",String.class);
+        //Abrir o token e pega os detalhes dele
+        String credentialsJson = Jwts.parser()//Responsavel por validar o Token
+            .setSigningKey(KEY)
+            .parseClaimsJws(token)//Abrir o token
+            .getBody()//Ler o corpo
+            .get("userDetails",String.class);//Pergar dados do usuário
         
-        //Set credential details like a Login DTO
+        //Transforma os dados na clase Login
         LoginDto login = mapper.readValue(credentialsJson, LoginDto.class);
 
         UserDetails userDetails = User.builder().username(login.getEmail()).password("secret")

@@ -10,6 +10,10 @@ import fatec.sp.gov.br.firstspring.entity.Profile;
 
 public interface LoginService extends UserDetailsService {
 
+    /**
+     * UserDetailsService é a interface que o spring usa para buscar os dados do usuário durante o login
+     */
+
     public List<Login> getAll();
 
     public Login getLoginById(Long id);
