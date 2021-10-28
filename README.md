@@ -1,6 +1,7 @@
 # TODO APP - Aplicação em JAVA com Spring boot
 
-A aplicação tem o objetivo de fornecer uma ferramenta simples de controle de tarefas.
+A aplicação tem o objetivo de fornecer uma ferramenta simples de controle de tarefas. Aplicação desenvolvida
+para a matéria de LAB V do 5º semestre de Banco de Dados da FATEC SJC.
 
 Iniciar a aplicação
 
